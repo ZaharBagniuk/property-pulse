@@ -1,6 +1,8 @@
-import connectDB from '@/config/database';
-import Message from '@/models/Message';
-import { getSessionUser } from '@/utils/getSessionUser';
+
+// POST /api/messages
+import connectDB from "@/config/database";
+import {getSessionUser} from "@/utils/getSessionUser";
+import Message from "@/models/Message";
 
 export const dynamic = 'force-dynamic';
 
@@ -41,7 +43,6 @@ export const GET = async () => {
   }
 };
 
-// POST /api/messages
 export const POST = async (request) => {
   try {
     await connectDB();
@@ -60,6 +61,8 @@ export const POST = async (request) => {
 
     const { user } = sessionUser;
 
+    console.log('user.id ', user.id)
+    console.log('recipient ', recipient)
     // Can not send message to self
     if (user.id === recipient) {
       return new Response(
